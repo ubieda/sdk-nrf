@@ -37,6 +37,8 @@ manifest:
       url-base: https://github.com/PelionIoT
     - name: memfault
       url-base: https://github.com/memfault
+    - name: ubieda
+      url-base: https://github.com/ubieda
 
   # If not otherwise specified, the projects below should be obtained
   # from the ncs remote.
@@ -55,8 +57,9 @@ manifest:
     # https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/introduction/index.html
     # https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/guides/modules.html
     - name: zephyr
-      repo-path: sdk-zephyr
-      revision: v2.6.0-rc1-ncs1
+      remote: ubieda
+      repo-path: sdk-zephyr-nrf
+      revision: v2.6.0-rc1-ncs1_usb_shell
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
