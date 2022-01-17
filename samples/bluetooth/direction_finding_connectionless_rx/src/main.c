@@ -8,8 +8,11 @@
 #include <errno.h>
 #include <zephyr.h>
 
+#include <math.h>
+
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/direction.h>
+#include <bluetooth/hci.h>
 
 #define DEVICE_NAME CONFIG_BT_DEVICE_NAME
 #define DEVICE_NAME_LEN (sizeof(DEVICE_NAME) - 1)
@@ -141,6 +144,12 @@ static void cte_recv_cb(struct bt_le_per_adv_sync *sync,
 	       bt_le_per_adv_sync_get_index(sync), report->sample_count,
 	       cte_type2str(report->cte_type), report->slot_durations,
 	       packet_status2str(report->packet_status), report->rssi);
+
+	for (size_t i = 0 ; i < report->sample_count ; i++) {
+		int8_t sample_i = report->sample[i].i, sample_q = report->sample[i].q;		
+		printk("\t- Sample #: %d, I: %d, Q: %d, Magnitude: %d\n ",i + 1, sample_i, sample_q,
+			(int)sqrt(sample_i*sample_i + sample_q*sample_q));
+	}
 }
 
 static struct bt_le_per_adv_sync_cb sync_callbacks = {
